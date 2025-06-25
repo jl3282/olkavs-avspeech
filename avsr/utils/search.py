@@ -74,12 +74,13 @@ class SearchSequence:
         beam_size : int = 1,
         D_end : int = -4,
         M_end : int = 12,
-        device = 'cpu',
+        device = None,
         mp_num : int = 1,
         *args, **kwargs
     ):
+        if device is None:
+            device = 'cuda' if torch.cuda.is_available() else ('mps' if torch.backends.mps.is_available() and torch.backends.mps.is_built() else 'cpu')
         batch_size = video_inputs.size(0)
-
         hypothesis = torch.full((batch_size, self.max_len), self.pad_id).to(device)
         max_lengths = torch.zeros(batch_size, dtype=int).to(device)
 
@@ -109,11 +110,13 @@ class SearchSequence:
         beam_size : int = 1,
         D_end : int = -4,
         M_end : int = 12,
-        device = 'cpu',
+        device = None,
         mp_num: int= 1,
         shared_outputs: List= None,
         *args, **kwargs
     ):
+        if device is None:
+            device = 'cuda' if torch.cuda.is_available() else ('mps' if torch.backends.mps.is_available() and torch.backends.mps.is_built() else 'cpu')
         batch_size = video_inputs.size(0)
         features = self.model.encoder(video_inputs, video_input_lengths,
                                 audio_inputs, audio_input_lengths)
@@ -127,12 +130,14 @@ class SearchSequence:
         beam_size : int = 1,
         D_end : int = -4,
         M_end : int = 12,
-        device = 'cpu',
+        device = None,
         batch_idx = None,
         batch_size = 1,
         shared_outputs = None,
         *args, **kwargs
     ):
+        if device is None:
+            device = 'cuda' if torch.cuda.is_available() else ('mps' if torch.backends.mps.is_available() and torch.backends.mps.is_built() else 'cpu')
         # sos sequence
         y_hats = torch.full((batch_size, self.max_len), self.pad_id).to(device)
         y_hats[:,0] = self.sos_id
@@ -202,8 +207,10 @@ class SearchSequence:
         batch_size:int,
         beam_size:int,
         ctc_output=None,
-        device='cpu',
+        device=None,
     ):
+        if device is None:
+            device = 'cuda' if torch.cuda.is_available() else ('mps' if torch.backends.mps.is_available() and torch.backends.mps.is_built() else 'cpu')
         # complete sub hypothesis
         hypo_sub = [[] for _ in range(batch_size)]
     

@@ -1,5 +1,5 @@
-torch>1.7.1+cu110
-torchaudio>0.7.2
+torch>=2.0.0
+torchaudio>=2.0.0
 numpy
 librosa
 opencv-python

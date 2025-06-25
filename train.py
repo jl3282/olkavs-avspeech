@@ -296,8 +296,18 @@ def main(args):
     
     # Check Devices
     print("cuda : ", torch.cuda.is_available())
-    print('Current cuda device:', torch.cuda.current_device())
-    print('Count of using GPUs:', torch.cuda.device_count())
+    device = None
+    if torch.cuda.is_available():
+        print('Current cuda device:', torch.cuda.current_device())
+        print('Count of using GPUs:', torch.cuda.device_count())
+        device = "cuda"
+    elif torch.backends.mps.is_available() and torch.backends.mps.is_built():
+        print('MPS device available')
+        device = "mps"
+    else:
+        print('Using CPU')
+        device = "cpu"
+    DEVICE = device
     
     # Configuration
     with open(args.config) as f:

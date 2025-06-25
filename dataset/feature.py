@@ -161,7 +161,7 @@ class MFCC(object):
 
 class FilterBank(object):
     '''
-    Create a fbank from a raw audio signal. This matches the input/output of Kaldi’s compute-fbank-feats
+    Create a fbank from a raw audio signal. This matches the input/output of Kaldi's compute-fbank-feats
     Args:
         sample_rate (int): Sample rate of audio signal. (Default: 16000)
         n_mels (int):  Number of mfc coefficients to retain. (Default: 80)
