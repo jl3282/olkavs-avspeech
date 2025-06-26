@@ -7,3 +7,7 @@ Levenshtein
 
 sk-video
 soundfile
+
+tqdm
+pandas
+# numpy<2.0  # (Optional, but helps avoid legacy issues)
